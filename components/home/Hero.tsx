@@ -27,7 +27,7 @@ export default function Hero() {
     >
       {/* Atmosphere */}
       <div aria-hidden className="grid-lines absolute inset-0 -z-20 [mask-image:radial-gradient(ellipse_at_60%_45%,#000_10%,transparent_70%)]" />
-      <div aria-hidden className="absolute right-[-10%] top-[10%] -z-20 size-[60vw] rounded-full bg-lime/[0.035] blur-[160px]" />
+      <div aria-hidden className="absolute right-[-10%] top-[10%] -z-20 size-[60vw] rounded-full bg-accent/[0.09] blur-[160px]" />
       <div aria-hidden className="absolute inset-0 -z-10">
         <KnotScene scroll={scroll} />
       </div>
@@ -43,7 +43,7 @@ export default function Hero() {
           transition={{ duration: 1, ease: EASE, delay: 0.2 }}
           className="mb-8 inline-flex w-fit items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2 pr-4 backdrop-blur"
         >
-          <span className="rounded-full bg-lime px-2 py-0.5 font-mono text-[0.65rem] font-medium uppercase tracking-wider text-ink">
+          <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[0.65rem] font-medium uppercase tracking-wider text-white">
             New
           </span>
           <span className="text-[0.82rem] text-bone/75">ISO 42001 AI governance programmes</span>
@@ -59,7 +59,7 @@ export default function Hero() {
             lines={[
               "Compliance,",
               <>
-                tied <span className="font-serif font-normal italic tracking-[-0.02em] text-lime">together.</span>
+                tied <span className="font-serif font-normal italic tracking-[-0.02em] text-ice">together.</span>
               </>,
             ]}
           />
@@ -113,7 +113,7 @@ export default function Hero() {
           <div className="flex items-center gap-3 font-mono uppercase tracking-[0.14em]">
             <span className="relative block h-9 w-[1px] overflow-hidden bg-white/10">
               <motion.span
-                className="absolute inset-x-0 top-0 h-3 bg-lime"
+                className="absolute inset-x-0 top-0 h-3 bg-accent"
                 animate={{ y: [-12, 36] }}
                 transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
               />

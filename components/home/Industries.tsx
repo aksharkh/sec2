@@ -28,14 +28,14 @@ function Card({ ind, i }: { ind: (typeof industries)[number]; i: number }) {
   return (
     <Link
       href={`/industries/${ind.slug}`}
-      className="group relative flex h-[min(68vh,560px)] w-[82vw] shrink-0 snap-start flex-col justify-between overflow-hidden rounded-3xl border border-white/[0.08] bg-ink-3 p-8 text-bone transition-colors duration-500 hover:border-lime/40 sm:w-[60vw] md:p-10 lg:w-[34vw]"
+      className="group relative flex h-[min(68vh,560px)] w-[82vw] shrink-0 snap-start flex-col justify-between overflow-hidden rounded-3xl border border-white/[0.08] bg-ink-3 p-8 text-bone transition-colors duration-500 hover:border-accent/40 sm:w-[60vw] md:p-10 lg:w-[34vw]"
     >
-      <span className="text-lime/80">
+      <span className="text-ice/80">
         <Pattern seed={i} />
       </span>
       <div className="relative flex items-center justify-between">
         <span className="font-mono text-xs text-bone/40">{String(i + 1).padStart(2, "0")} / {String(industries.length).padStart(2, "0")}</span>
-        <span className="grid size-10 place-items-center rounded-full border border-white/15 transition-all duration-500 group-hover:border-lime group-hover:bg-lime group-hover:text-ink">
+        <span className="grid size-10 place-items-center rounded-full border border-white/15 transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
           <Arrow />
         </span>
       </div>
@@ -91,11 +91,11 @@ export default function Industries() {
             <div>
               <Eyebrow>Industries</Eyebrow>
               <h2 id="industries-title" className="mt-5 text-[length:var(--text-section)] font-medium leading-[0.95] tracking-[-0.045em]">
-                Built for how <span className="font-serif font-normal italic text-lime">your</span> sector works.
+                Built for how <span className="font-serif font-normal italic text-ice">your</span> sector works.
               </h2>
             </div>
             <div className="hidden h-px w-48 bg-white/10 lg:block">
-              <motion.div className="h-full origin-left bg-lime" style={{ scaleX: scrollYProgress }} />
+              <motion.div className="h-full origin-left bg-accent" style={{ scaleX: scrollYProgress }} />
             </div>
           </div>
           <motion.div ref={track} style={{ x }} className="flex gap-4 pl-[max(1rem,calc((100vw-1480px)/2+3.5rem))] pr-[4vw] will-change-transform">
@@ -111,7 +111,7 @@ export default function Industries() {
         <div className="container-x">
           <Eyebrow>Industries</Eyebrow>
           <h2 id="industries-title-m" className="mt-5 text-[length:var(--text-section)] font-medium leading-[0.95] tracking-[-0.045em]">
-            Built for how <span className="font-serif font-normal italic text-lime">your</span> sector works.
+            Built for how <span className="font-serif font-normal italic text-ice">your</span> sector works.
           </h2>
         </div>
         <div className="mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-4 [scrollbar-width:none]" data-lenis-prevent>

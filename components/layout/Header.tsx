@@ -194,7 +194,7 @@ export default function Header() {
                                 className="group flex items-center justify-between border-b border-white/[0.06] py-2.5 text-[0.95rem] text-bone/80 transition-colors hover:text-bone"
                               >
                                 {it.name}
-                                <Arrow className="-translate-x-2 text-lime opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                                <Arrow className="-translate-x-2 text-ice opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                               </Link>
                             </li>
                           ))}
@@ -206,7 +206,7 @@ export default function Header() {
                     <Link
                       href={active.feature.href}
                       onClick={() => setOpen(null)}
-                      className="group relative col-span-4 flex min-h-[260px] flex-col justify-between overflow-hidden rounded-2xl bg-lime p-7 text-ink"
+                      className="group relative col-span-4 flex min-h-[260px] flex-col justify-between overflow-hidden rounded-2xl bg-accent p-7 text-white"
                     >
                       <span className="eyebrow">{active.feature.eyebrow}</span>
                       <MegaKnot />

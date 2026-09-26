@@ -5,11 +5,11 @@ import clsx from "clsx";
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 
-type Variant = "lime" | "ghost" | "light" | "dark";
+type Variant = "accent" | "ghost" | "light" | "dark";
 
 const styles: Record<Variant, string> = {
-  lime: "bg-lime text-ink hover:bg-bone",
-  light: "bg-bone text-ink hover:bg-lime",
+  accent: "bg-accent text-white hover:bg-bone hover:text-ink shadow-[0_10px_30px_-10px_rgba(76,125,255,0.7)]",
+  light: "bg-bone text-ink hover:bg-accent hover:text-white",
   dark: "bg-ink text-bone hover:bg-ink-3",
   ghost: "border border-white/15 text-bone hover:border-white/40 hover:bg-white/[0.04]",
 };
@@ -26,7 +26,7 @@ export function Arrow({ className }: { className?: string }) {
 export default function Button({
   href,
   children,
-  variant = "lime",
+  variant = "accent",
   size = "md",
   className,
   magnetic = true,

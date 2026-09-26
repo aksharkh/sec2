@@ -15,7 +15,7 @@ function Word({ word, range, progress }: { word: string; range: [number, number]
   const hl = HIGHLIGHT.has(clean);
   return (
     <span className="relative mr-[0.24em] inline-block">
-      <motion.span style={{ opacity }} className={hl ? "font-serif italic text-lime" : undefined}>
+      <motion.span style={{ opacity }} className={hl ? "font-serif italic text-ice" : undefined}>
         {word}
       </motion.span>
     </span>

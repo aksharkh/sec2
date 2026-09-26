@@ -76,7 +76,7 @@ export default function Process() {
                   className={clsx(
                     "rounded-full border px-3.5 py-1.5 font-mono text-[0.7rem] uppercase tracking-widest transition-all duration-500",
                     i === active
-                      ? "border-lime bg-lime text-ink"
+                      ? "border-accent bg-accent text-white"
                       : i < active
                         ? "border-white/20 text-bone/70"
                         : "border-white/10 text-bone/35",
@@ -96,7 +96,7 @@ export default function Process() {
                   exit={{ opacity: 0, y: -30, filter: "blur(6px)" }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <p className="font-mono text-sm text-lime">0{active + 1} / 0{STEPS.length}</p>
+                  <p className="font-mono text-sm text-ice">0{active + 1} / 0{STEPS.length}</p>
                   <p className="mt-4 text-[clamp(2.25rem,4.6vw,4.5rem)] font-medium leading-[0.98] tracking-[-0.04em]">
                     {step.title}
                   </p>
@@ -104,7 +104,7 @@ export default function Process() {
                   <ul className="mt-8 flex flex-wrap gap-2">
                     {step.out.map((o) => (
                       <li key={o} className="flex items-center gap-2 rounded-full bg-white/[0.05] px-3.5 py-2 text-sm text-bone/80">
-                        <svg viewBox="0 0 12 12" className="size-3 text-lime" aria-hidden>
+                        <svg viewBox="0 0 12 12" className="size-3 text-ice" aria-hidden>
                           <path d="M2 6.5 5 9l5-6" stroke="currentColor" strokeWidth="1.6" fill="none" strokeLinecap="round" />
                         </svg>
                         {o}
@@ -122,7 +122,7 @@ export default function Process() {
               <motion.path
                 d={PATH}
                 fill="none"
-                stroke="#d6ff3d"
+                stroke="#7fa0ff"
                 strokeWidth="2"
                 strokeLinecap="round"
                 style={{ pathLength: draw }}
@@ -130,7 +130,7 @@ export default function Process() {
               <motion.path
                 d={PATH}
                 fill="none"
-                stroke="rgba(214,255,61,0.25)"
+                stroke="rgba(76,125,255,0.4)"
                 strokeWidth="14"
                 strokeLinecap="round"
                 style={{ pathLength: draw, filter: "blur(8px)" }}
@@ -149,7 +149,7 @@ export default function Process() {
 
         {/* progress rail */}
         <div className="absolute bottom-10 left-1/2 hidden h-px w-[min(560px,60vw)] -translate-x-1/2 bg-white/10 md:block">
-          <motion.div className="h-full origin-left bg-lime" style={{ scaleX: smooth }} />
+          <motion.div className="h-full origin-left bg-accent" style={{ scaleX: smooth }} />
         </div>
       </div>
     </section>

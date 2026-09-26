@@ -97,7 +97,7 @@ export default function OverlapTool() {
                         <span
                           className={clsx(
                             "size-1.5 rounded-full transition-colors",
-                            on ? "bg-lime" : "bg-ink/25",
+                            on ? "bg-ice" : "bg-ink/25",
                           )}
                         />
                         {f}
@@ -127,7 +127,7 @@ export default function OverlapTool() {
                 <dt className="eyebrow text-smoke">Duplication cut</dt>
                 <dd className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
                   <span className="relative">
-                    <span className="absolute -inset-x-1 bottom-1 top-1/2 -z-0 bg-lime" aria-hidden />
+                    <span className="absolute -inset-x-1 bottom-1 top-1/2 -z-0 bg-accent/35" aria-hidden />
                     <span className="relative"><Counter value={stats.saved} suffix="%" /></span>
                   </span>
                 </dd>
@@ -164,7 +164,7 @@ export default function OverlapTool() {
                     )}
                   >
                     <span className="flex items-center gap-3 text-[0.92rem] font-medium tracking-tight">
-                      <span className={clsx("font-mono text-[0.65rem]", full ? "text-lime" : "text-ink/35")}>
+                      <span className={clsx("font-mono text-[0.65rem]", full ? "text-ice" : "text-ink/35")}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       {d}
@@ -180,7 +180,7 @@ export default function OverlapTool() {
                               exit={{ scale: 0, opacity: 0 }}
                               transition={{ type: "spring", stiffness: 500, damping: 28 }}
                               title={f}
-                              className={clsx("size-2 rounded-full", full ? "bg-lime" : "bg-ink/70")}
+                              className={clsx("size-2 rounded-full", full ? "bg-ice" : "bg-ink/70")}
                             />
                           ) : null,
                         )}

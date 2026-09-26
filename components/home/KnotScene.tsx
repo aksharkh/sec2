@@ -77,7 +77,8 @@ const vertex = /* glsl */ `
 
 const fragment = /* glsl */ `
   uniform vec3 uBone;
-  uniform vec3 uLime;
+  uniform vec3 uAccent;
+  uniform vec3 uIce;
   uniform float uFade;
   varying float vRand;
   varying float vAlpha;
@@ -87,9 +88,10 @@ const fragment = /* glsl */ `
     float d = length(c);
     if (d > 0.5) discard;
     float soft = smoothstep(0.5, 0.0, d);
-    vec3 col = vRand > 0.94 ? uLime : uBone;
+    // three tiers: cool white body, cobalt strands, bright ice sparks
+    vec3 col = vRand > 0.965 ? uIce : (vRand > 0.72 ? uAccent : uBone);
     float a = soft * vAlpha * mix(0.25, 1.0, vDepth) * uFade;
-    a *= vRand > 0.94 ? 1.0 : 0.75;
+    a *= vRand > 0.965 ? 1.2 : (vRand > 0.72 ? 1.0 : 0.6);
     gl_FragColor = vec4(col, a);
   }
 `;
@@ -160,8 +162,9 @@ function Particles({
       uPixelRatio: { value: Math.min(gl.getPixelRatio(), 2) },
       uSize: { value: 44 },
       uFade: { value: 1 },
-      uBone: { value: new THREE.Color("#f1efe8") },
-      uLime: { value: new THREE.Color("#d6ff3d") },
+      uBone: { value: new THREE.Color("#e6ecff") },
+      uAccent: { value: new THREE.Color("#3b7bff") },
+      uIce: { value: new THREE.Color("#c9d8ff") },
     }),
     [gl],
   );

@@ -16,7 +16,7 @@ function Row({ items, reverse = false }: { items: typeof frameworks; reverse?: b
               </span>
               <span className="eyebrow text-[0.62rem] text-fog">{f.region}</span>
             </span>
-            <KnotMark className="size-5 text-lime/70" />
+            <KnotMark className="size-5 text-ice/70" />
           </li>
         ))}
       </ul>

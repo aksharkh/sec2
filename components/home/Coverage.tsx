@@ -59,8 +59,8 @@ export default function Coverage() {
                     <p className="text-ink/50">{o.country}</p>
                   </div>
                   <span className="relative mt-1 flex size-3">
-                    <span className="absolute inset-0 animate-pulse-dot rounded-full bg-lime" />
-                    <span className="relative size-3 rounded-full border border-ink/40 bg-lime" />
+                    <span className="absolute inset-0 animate-pulse-dot rounded-full bg-accent" />
+                    <span className="relative size-3 rounded-full border border-ink/40 bg-accent" />
                   </span>
                 </div>
                 <p className="mt-12 font-mono text-[clamp(3rem,7vw,6rem)] font-light leading-none tracking-[-0.06em]">

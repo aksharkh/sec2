@@ -19,11 +19,11 @@ export default function FinalCTA() {
       <motion.div style={{ marginInline: inset }} className="relative">
         <motion.div
           style={{ borderRadius: radius }}
-          className="relative overflow-hidden bg-lime text-ink"
+          className="relative overflow-hidden bg-accent-deep text-white"
         >
           <motion.div
             style={{ rotate, scale }}
-            className="pointer-events-none absolute -right-[10vw] top-1/2 size-[62vw] -translate-y-1/2 opacity-[0.12] md:size-[48vw]"
+            className="pointer-events-none absolute -right-[10vw] top-1/2 size-[62vw] -translate-y-1/2 opacity-[0.16] md:size-[48vw]"
             aria-hidden
           >
             <KnotMark className="size-full" />
@@ -38,7 +38,7 @@ export default function FinalCTA() {
               Let&apos;s tie it <span className="font-serif font-normal italic">together.</span>
             </h2>
             <div className="mt-14 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-              <p className="max-w-[40ch] text-lg leading-relaxed text-ink/70">
+              <p className="max-w-[40ch] text-lg leading-relaxed text-white/75">
                 A 30-minute call with a practitioner. You leave with a clear view of which frameworks matter, in what order,
                 and what it will take.
               </p>
@@ -46,7 +46,7 @@ export default function FinalCTA() {
                 <Button href="/contact" variant="dark" size="lg">Book a consultation</Button>
                 <a
                   href={`mailto:${site.email}`}
-                  className="inline-flex h-14 items-center rounded-full border border-ink/25 px-7 font-medium transition-colors hover:bg-ink hover:text-lime"
+                  className="inline-flex h-14 items-center rounded-full border border-white/30 px-7 font-medium transition-colors hover:bg-white hover:text-accent-deep"
                 >
                   {site.email}
                 </a>

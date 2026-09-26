@@ -41,11 +41,11 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <p className="max-w-[22ch] text-3xl font-medium leading-[1.1] tracking-tight">
               Many frameworks.{" "}
-              <span className="font-serif italic text-lime">One programme.</span>
+              <span className="font-serif italic text-ice">One programme.</span>
             </p>
             <a
               href={`mailto:${site.email}`}
-              className="mt-8 inline-block border-b border-white/20 pb-1 text-lg transition-colors hover:border-lime hover:text-lime"
+              className="mt-8 inline-block border-b border-white/20 pb-1 text-lg transition-colors hover:border-accent hover:text-ice"
             >
               {site.email}
             </a>
@@ -102,7 +102,7 @@ export default function Footer() {
       {/* Oversized wordmark */}
       <div className="relative mt-16 select-none" aria-hidden>
         <div className="container-x flex items-end gap-[1.5vw]">
-          <KnotMark className="mb-[0.6vw] size-[9vw] shrink-0 text-lime" />
+          <KnotMark className="mb-[0.6vw] size-[9vw] shrink-0 text-ice" />
           {/* SVG text with textLength always fits the row exactly, at any width */}
           <svg viewBox="0 0 1000 190" className="block h-auto min-w-0 flex-1 overflow-visible">
             <defs>

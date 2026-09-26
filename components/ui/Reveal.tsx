@@ -89,7 +89,7 @@ export function Eyebrow({
 }) {
   return (
     <span className={clsx("eyebrow inline-flex items-center gap-2.5 text-fog", className)}>
-      {dot && <span className="size-1.5 rounded-full bg-lime" />}
+      {dot && <span className="size-1.5 rounded-full bg-accent" />}
       {children}
     </span>
   );

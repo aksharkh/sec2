@@ -57,7 +57,7 @@ export default function WhyUs() {
       <div className="container-x">
         <Eyebrow>Why SecureKnots</Eyebrow>
         <h2 id="why-title" className="mt-6 max-w-[18ch] text-[length:var(--text-section)] font-medium leading-[0.95] tracking-[-0.045em]">
-          <RevealLines lines={["Less audit theatre.", <>More <span className="font-serif font-normal italic text-lime">actual</span> security.</>]} />
+          <RevealLines lines={["Less audit theatre.", <>More <span className="font-serif font-normal italic text-ice">actual</span> security.</>]} />
         </h2>
 
         <dl className="mt-20 grid grid-cols-2 border-t border-white/[0.08] lg:grid-cols-4">
@@ -79,7 +79,7 @@ export default function WhyUs() {
           {REASONS.map((r, i) => (
             <Reveal key={r.t} delay={i * 0.06} className="group bg-ink p-8 transition-colors duration-500 hover:bg-ink-2 md:p-12">
               <div className="flex items-start gap-6">
-                <span className="mt-1 font-mono text-xs text-lime">0{i + 1}</span>
+                <span className="mt-1 font-mono text-xs text-ice">0{i + 1}</span>
                 <div>
                   <h3 className="text-2xl font-medium tracking-tight md:text-3xl">{r.t}</h3>
                   <p className="mt-3 max-w-[46ch] leading-relaxed text-bone/55">{r.d}</p>

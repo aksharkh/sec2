@@ -48,11 +48,11 @@ export default function Insights() {
                 <div className="relative aspect-[4/3] overflow-hidden bg-ink">
                   <div className="absolute inset-0 grid-lines opacity-70 transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-110" />
                   <div className="absolute inset-0 grid place-items-center">
-                    <span className="text-[clamp(3rem,6vw,5.5rem)] font-medium tracking-[-0.05em] text-bone transition-colors duration-500 group-hover:text-lime">
+                    <span className="text-[clamp(3rem,6vw,5.5rem)] font-medium tracking-[-0.05em] text-bone transition-colors duration-500 group-hover:text-ice">
                       {g.tag}
                     </span>
                   </div>
-                  <span className="absolute left-5 top-5 rounded-full bg-lime px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-wider text-ink">
+                  <span className="absolute left-5 top-5 rounded-full bg-accent px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-wider text-white">
                     Guide
                   </span>
                 </div>
