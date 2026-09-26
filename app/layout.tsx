@@ -9,6 +9,8 @@ import Cursor from "@/components/ui/Cursor";
 import UIProvider from "@/components/providers/UIProvider";
 import Preloader from "@/components/overlays/Preloader";
 import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
+import ScrollRing from "@/components/ui/ScrollRing";
+import Spotlight from "@/components/ui/Spotlight";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -98,6 +100,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </SmoothScroll>
         <Preloader />
         <ThemeSwitcher />
+        <ScrollRing />
+        <Spotlight />
         <Cursor />
       </body>
     </html>

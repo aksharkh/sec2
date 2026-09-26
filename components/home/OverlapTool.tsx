@@ -61,7 +61,7 @@ export default function OverlapTool() {
   }, [selected]);
 
   return (
-    <section id="overlap" className="relative scroll-mt-20 bg-bone py-28 text-ink md:py-40" aria-labelledby="overlap-title">
+    <section id="overlap" className="wipe-in relative scroll-mt-20 bg-bone py-28 text-ink md:py-40" aria-labelledby="overlap-title">
       <div className="container-x">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">

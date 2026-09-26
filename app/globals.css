@@ -153,3 +153,27 @@ html.lenis, html.lenis body { height: auto; }
 .page-curtain--b { z-index: 249; background: var(--color-ink); animation-delay: 0.18s; }
 .page-enter { animation: page-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
 .page-enter:has(#hero-title) { animation: none; }
+
+/* ───────────────────────── Flow network ───────────────────────── */
+@keyframes flow { from { stroke-dashoffset: 1; } to { stroke-dashoffset: -0.2; } }
+@keyframes node-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+@keyframes core-breathe { 0%, 100% { opacity: 0.55; transform: scale(0.94); } 50% { opacity: 1; transform: scale(1.06); } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.flow-pulse { stroke-dasharray: 0.12 1.2; animation: flow 3s linear infinite; }
+.flow-node { animation: node-pulse 2.4s ease-in-out infinite; }
+.flow-core { transform-origin: 600px 250px; animation: core-breathe 4s ease-in-out infinite; }
+.flow-spin { transform-origin: 600px 250px; animation: spin-slow 24s linear infinite; }
+
+/* ───────────────────────── Scroll-driven circle wipe (CSS only) ───────────────────────── */
+@keyframes wipe-open {
+  from { clip-path: circle(12% at 50% 100%); }
+  to { clip-path: circle(150% at 50% 100%); }
+}
+@supports (animation-timeline: view()) {
+  .wipe-in {
+    animation: wipe-open linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 90%;
+  }
+}
+@media (prefers-reduced-motion: reduce) { .wipe-in { animation: none !important; } }

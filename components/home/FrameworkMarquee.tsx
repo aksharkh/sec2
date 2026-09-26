@@ -1,5 +1,6 @@
 import { frameworks } from "@/lib/site";
 import { KnotMark } from "@/components/ui/Logo";
+import VelocitySkew from "@/components/ui/VelocitySkew";
 
 function Row({ items, reverse = false }: { items: typeof frameworks; reverse?: boolean }) {
   const doubled = [...items, ...items];
@@ -32,10 +33,12 @@ export default function FrameworkMarquee() {
         <p className="eyebrow text-fog">{frameworks.length}+ frameworks · one team</p>
         <p className="eyebrow hidden text-fog sm:block">Certify · Authorise · Regulate · Test</p>
       </div>
-      <div className="space-y-5">
-        <Row items={frameworks.slice(0, half)} />
-        <Row items={frameworks.slice(half)} reverse />
-      </div>
+      <VelocitySkew>
+        <div className="space-y-5">
+          <Row items={frameworks.slice(0, half)} />
+          <Row items={frameworks.slice(half)} reverse />
+        </div>
+      </VelocitySkew>
     </section>
   );
 }

@@ -1,6 +1,7 @@
 import Hero from "@/components/home/Hero";
 import FrameworkMarquee from "@/components/home/FrameworkMarquee";
 import Manifesto from "@/components/home/Manifesto";
+import FlowNetwork from "@/components/home/FlowNetwork";
 import ZoomThrough from "@/components/home/ZoomThrough";
 import OverlapTool from "@/components/home/OverlapTool";
 import Portal from "@/components/home/Portal";
@@ -20,6 +21,7 @@ export default function Home() {
       <FrameworkMarquee />
       <Manifesto />
       <ZoomThrough />
+      <FlowNetwork />
       <OverlapTool />
       <Portal />
       <Services />

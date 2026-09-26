@@ -7,7 +7,7 @@ const GUIDES = articles.slice(0, 3);
 
 export default function Insights() {
   return (
-    <section className="relative bg-bone py-28 text-ink md:py-40" aria-labelledby="insights-title">
+    <section className="wipe-in relative bg-bone py-28 text-ink md:py-40" aria-labelledby="insights-title">
       <div className="container-x">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>

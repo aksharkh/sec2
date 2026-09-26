@@ -8,6 +8,7 @@ import { StoryArt, Wordmark } from "@/components/customers/StoryArt";
 import { SectionHead } from "@/components/page/Blocks";
 import { Reveal } from "@/components/ui/Reveal";
 import { Arrow } from "@/components/ui/Button";
+import Tilt from "@/components/ui/Tilt";
 import { stories } from "@/lib/stories";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -121,7 +122,7 @@ export function StoryGrid() {
             <AnimatePresence mode="popLayout">
               {list.map((s) => (
                 <motion.li key={s.slug} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.5, ease: EASE }}>
-                  <Link href={`/customers/${s.slug}`} className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-ink-2 transition-colors hover:border-accent/50">
+                  <Tilt className="h-full"><Link href={`/customers/${s.slug}`} className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-ink-2 transition-colors hover:border-accent/50">
                     <div className="overflow-hidden">
                       <StoryArt story={s} className="aspect-[16/10] transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-105" />
                     </div>
@@ -144,7 +145,7 @@ export function StoryGrid() {
                         </span>
                       </div>
                     </div>
-                  </Link>
+                  </Link></Tilt>
                 </motion.li>
               ))}
             </AnimatePresence>

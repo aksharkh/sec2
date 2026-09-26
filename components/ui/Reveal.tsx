@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import Scramble from "@/components/ui/Scramble";
 import { motion, useInView, type Variants } from "motion/react";
 import { useRef } from "react";
 
@@ -89,8 +90,8 @@ export function Eyebrow({
 }) {
   return (
     <span className={clsx("eyebrow inline-flex items-center gap-2.5 text-fog", className)}>
-      {dot && <span className="size-1.5 rounded-full bg-accent" />}
-      {children}
+      {dot && <span className="size-1.5 animate-pulse-dot rounded-full bg-accent" />}
+      {typeof children === "string" ? <Scramble text={children} /> : children}
     </span>
   );
 }

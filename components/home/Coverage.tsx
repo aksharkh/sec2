@@ -15,7 +15,7 @@ const REGIONS = [
 
 export default function Coverage() {
   return (
-    <section className="relative overflow-hidden bg-bone py-28 text-ink md:py-40" aria-labelledby="coverage-title">
+    <section className="wipe-in relative overflow-hidden bg-bone py-28 text-ink md:py-40" aria-labelledby="coverage-title">
       <div className="container-x">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-7">

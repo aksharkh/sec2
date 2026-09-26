@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Arrow } from "@/components/ui/Button";
+import Tilt from "@/components/ui/Tilt";
 import { frameworks, pillars, type Pillar } from "@/lib/site";
 
 const REGIONS = ["All", "Global", "US", "EU", "India", "APAC"] as const;
@@ -86,6 +87,7 @@ export default function FrameworkExplorer() {
               exit={{ opacity: 0, scale: 0.94 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
+              <Tilt className="h-full" radius="rounded-2xl" max={9}>
               <Link
                 href={`/compliance/${f.slug}`}
                 className="group relative flex h-full min-h-[230px] flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-ink-2 p-6 transition-colors duration-500 hover:border-accent/60"
@@ -103,6 +105,7 @@ export default function FrameworkExplorer() {
                   <p className="mt-3 text-sm leading-relaxed text-bone/60">{f.blurb}</p>
                 </div>
               </Link>
+              </Tilt>
             </motion.li>
           ))}
         </AnimatePresence>
