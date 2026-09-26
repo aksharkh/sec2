@@ -1,8 +1,9 @@
 "use client";
 
+import { useProgress } from "@/lib/useProgress";
 import clsx from "clsx";
 import { useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
+import { AnimatePresence, motion, useMotionValueEvent, useSpring, useTransform } from "motion/react";
 import { Eyebrow } from "@/components/ui/Reveal";
 
 const STEPS = [
@@ -47,7 +48,7 @@ const PATH = trefoil();
 export default function Process() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const scrollYProgress = useProgress(ref, ["start start", "end end"]);
   const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
   const draw = useTransform(smooth, [0.02, 0.92], [0, 1]);
   const spin = useTransform(smooth, [0, 1], [-30, 90]);

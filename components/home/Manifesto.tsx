@@ -1,7 +1,8 @@
 "use client";
 
+import { useProgress } from "@/lib/useProgress";
 import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useTransform, type MotionValue } from "motion/react";
 import { Eyebrow } from "@/components/ui/Reveal";
 
 const TEXT =
@@ -24,7 +25,7 @@ function Word({ word, range, progress }: { word: string; range: [number, number]
 
 export default function Manifesto() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end 0.45"] });
+  const scrollYProgress = useProgress(ref, ["start 0.85", "end 0.45"]);
   const words = TEXT.split(" ");
 
   return (

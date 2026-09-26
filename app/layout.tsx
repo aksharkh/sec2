@@ -6,6 +6,8 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Cursor from "@/components/ui/Cursor";
+import UIProvider from "@/components/providers/UIProvider";
+import Preloader from "@/components/overlays/Preloader";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -87,10 +89,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <SmoothScroll>
-          <Header />
-          <main id="main">{children}</main>
-          <Footer />
+          <UIProvider>
+            <Header />
+            <main id="main">{children}</main>
+            <Footer />
+          </UIProvider>
         </SmoothScroll>
+        <Preloader />
         <Cursor />
       </body>
     </html>

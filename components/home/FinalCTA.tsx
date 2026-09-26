@@ -1,14 +1,15 @@
 "use client";
 
+import { useProgress } from "@/lib/useProgress";
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useTransform } from "motion/react";
 import Button from "@/components/ui/Button";
 import { KnotMark } from "@/components/ui/Logo";
 import { site } from "@/lib/site";
 
 export default function FinalCTA() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const scrollYProgress = useProgress(ref, ["start end", "end end"]);
   const rotate = useTransform(scrollYProgress, [0, 1], [-90, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [0.6, 1]);
   const radius = useTransform(scrollYProgress, [0, 0.8], ["48px", "0px"]);
@@ -43,7 +44,7 @@ export default function FinalCTA() {
                 and what it will take.
               </p>
               <div className="flex flex-wrap items-center gap-3">
-                <Button href="/contact" variant="dark" size="lg">Book a consultation</Button>
+                <Button href="/contact" book variant="dark" size="lg">Book a consultation</Button>
                 <a
                   href={`mailto:${site.email}`}
                   className="inline-flex h-14 items-center rounded-full border border-white/30 px-7 font-medium transition-colors hover:bg-white hover:text-accent-deep"

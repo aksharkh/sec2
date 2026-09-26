@@ -1,8 +1,10 @@
 "use client";
 
+import { useProgress } from "@/lib/useProgress";
 import Link from "next/link";
 import clsx from "clsx";
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useTransform, type MotionValue } from "motion/react";
 import { Eyebrow, Reveal, RevealLines } from "@/components/ui/Reveal";
 import { Arrow } from "@/components/ui/Button";
 import { frameworks, pillars, testingServices, type Pillar } from "@/lib/site";
@@ -152,88 +154,89 @@ const visuals: Record<Pillar, React.ReactNode> = {
   advisory: <Heatmap />,
 };
 
-const layout: Record<Pillar, string> = {
-  certifications: "lg:col-span-7 lg:row-span-2 min-h-[520px]",
-  government: "lg:col-span-5 min-h-[250px]",
-  privacy: "lg:col-span-5 min-h-[250px]",
-  testing: "lg:col-span-7 min-h-[320px]",
-  advisory: "lg:col-span-5 min-h-[320px]",
-};
+
+const TONES = ["#0e1a44", "#112058", "#15266b", "#1a2d80", "#1f3596"];
+
+function StackCard({ i, n, progress }: { i: number; n: number; progress: MotionValue<number> }) {
+  const p = pillars[i];
+  const chips =
+    p.id === "testing"
+      ? testingServices.map((t) => t.name.replace(/ (Testing|Exercise)$/, ""))
+      : frameworks.filter((f) => f.pillar === p.id).map((f) => f.name);
+  const target = 1 - (n - i) * 0.035;
+  const scale = useTransform(progress, [i / n, 1], [1, target]);
+  const dim = useTransform(progress, [i / n, Math.min(1, (i + 1) / n)], [0, i === n - 1 ? 0 : 0.35]);
+  return (
+    <div className="sticky top-0 flex h-[100svh] items-center justify-center" style={{ paddingTop: `calc(12vh + ${i * 22}px)` }}>
+      <motion.div
+        style={{ scale, background: TONES[i] }}
+        className="relative w-full max-w-[1400px] origin-top overflow-hidden rounded-[28px] border border-white/10"
+      >
+        <Link
+          href={p.href}
+          onPointerMove={spotlight}
+          className="group relative grid h-[min(76vh,680px)] gap-8 p-7 md:grid-cols-2 md:p-12"
+        >
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            style={{ background: "radial-gradient(520px circle at var(--mx) var(--my), rgba(169,194,255,0.14), transparent 60%)" }}
+          />
+          <span aria-hidden className="absolute inset-0 grid-lines opacity-40" />
+          <div className="relative flex flex-col justify-between">
+            <div className="flex items-center gap-4">
+              <span className="font-mono text-sm text-ice">0{i + 1}</span>
+              <span className="h-px w-10 bg-white/20" />
+              <span className="eyebrow text-white/60">{p.short}</span>
+            </div>
+            <div>
+              <h3 className="text-[clamp(2.25rem,4.6vw,4.75rem)] font-medium leading-[0.95] tracking-[-0.045em] text-white">{p.title}</h3>
+              <p className="mt-5 max-w-[42ch] text-lg text-white/65">{p.description}</p>
+              <ul className="mt-7 flex flex-wrap gap-1.5">
+                {chips.map((c) => (
+                  <li key={c} className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 font-mono text-[0.7rem] text-white/75">{c}</li>
+                ))}
+              </ul>
+              <span className="mt-8 inline-flex items-center gap-3 font-medium text-white">
+                <span className="grid size-11 place-items-center rounded-full bg-white text-ink transition-transform duration-500 group-hover:-rotate-45">
+                  <Arrow />
+                </span>
+                Explore {p.short.toLowerCase()}
+              </span>
+            </div>
+          </div>
+          <div className="relative hidden items-center justify-center md:flex">
+            <div className="flex w-full max-w-lg scale-110 justify-center">{visuals[p.id]}</div>
+          </div>
+        </Link>
+        <motion.div aria-hidden style={{ opacity: dim }} className="pointer-events-none absolute inset-0 bg-ink" />
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Services() {
+  const ref = useRef<HTMLDivElement>(null);
+  const scrollYProgress = useProgress(ref, ["start start", "end end"]);
   return (
-    <section className="relative bg-ink py-28 md:py-40" aria-labelledby="services-title">
+    <section className="relative bg-ink pt-28 md:pt-40" aria-labelledby="services-title">
       <div className="container-x">
-        <div className="mb-16 flex flex-col justify-between gap-8 md:mb-20 lg:flex-row lg:items-end">
+        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div>
             <Eyebrow>What we do</Eyebrow>
-            <h2
-              id="services-title"
-              className="mt-6 text-[length:var(--text-section)] font-medium leading-[0.95] tracking-[-0.045em]"
-            >
+            <h2 id="services-title" className="mt-6 text-[length:var(--text-section)] font-medium leading-[0.95] tracking-[-0.045em]">
               <RevealLines lines={["Five disciplines.", <>One <span className="font-serif font-normal italic text-ice">accountable</span> team.</>]} />
             </h2>
           </div>
           <Reveal className="max-w-[40ch] text-lg leading-relaxed text-bone/60">
-            From first gap assessment to final report and every surveillance audit after — without handing you between
-            vendors.
+            From first gap assessment to final report and every surveillance audit after — without handing you between vendors.
           </Reveal>
         </div>
-
-        <div className="grid gap-3 lg:grid-cols-12">
-          {pillars.map((p, idx) => {
-            const chips =
-              p.id === "testing"
-                ? testingServices.slice(0, 4).map((t) => t.name.replace(/ (Testing|Exercise)$/, ""))
-                : frameworks.filter((f) => f.pillar === p.id).slice(0, 6).map((f) => f.name);
-            const big = p.id === "certifications";
-            return (
-              <Reveal key={p.id} delay={idx * 0.06} className={clsx(layout[p.id])}>
-                <Link
-                  href={p.href}
-                  onPointerMove={spotlight}
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-ink-2 p-7 transition-colors duration-500 hover:border-white/20 md:p-9"
-                >
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{
-                      background:
-                        "radial-gradient(420px circle at var(--mx) var(--my), rgba(76,125,255,0.16), transparent 60%)",
-                    }}
-                  />
-                  <div className="relative flex items-start justify-between gap-6">
-                    <span className="font-mono text-xs text-bone/35">0{idx + 1}</span>
-                    <span className="grid size-10 place-items-center rounded-full border border-white/12 transition-all duration-500 group-hover:rotate-[-45deg] group-hover:border-accent group-hover:bg-accent group-hover:text-white">
-                      <Arrow />
-                    </span>
-                  </div>
-
-                  <div className={clsx("relative my-8 flex", big ? "flex-1 items-center justify-center" : "items-center")}>
-                    {visuals[p.id]}
-                  </div>
-
-                  <div className="relative">
-                    <h3 className={clsx("font-medium tracking-[-0.03em]", big ? "text-4xl md:text-5xl" : "text-2xl md:text-3xl")}>
-                      {p.title}
-                    </h3>
-                    <p className="mt-3 max-w-[44ch] text-bone/55">{p.description}</p>
-                    <ul className="mt-6 flex flex-wrap gap-1.5">
-                      {chips.map((c) => (
-                        <li
-                          key={c}
-                          className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[0.68rem] text-bone/60"
-                        >
-                          {c}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Link>
-              </Reveal>
-            );
-          })}
-        </div>
+      </div>
+      <div ref={ref} className="container-x relative pb-[10vh]">
+        {pillars.map((_, i) => (
+          <StackCard key={i} i={i} n={pillars.length} progress={scrollYProgress} />
+        ))}
       </div>
     </section>
   );

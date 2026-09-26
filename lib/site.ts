@@ -101,7 +101,7 @@ export const pillars: {
   href: string;
   description: string;
 }[] = [
-  { id: "certifications", title: "Certifications & Attestations", short: "Certify", href: "/compliance", description: "SOC, ISO and PCI programmes from readiness to report." },
+  { id: "certifications", title: "Certifications & Attestations", short: "Certify", href: "/certifications", description: "SOC, ISO and PCI programmes from readiness to report." },
   { id: "government", title: "Government & Defense", short: "Authorise", href: "/government", description: "FedRAMP, StateRAMP, CMMC, NIST 800-53, ITAR and EAR." },
   { id: "privacy", title: "Privacy & Regulatory", short: "Regulate", href: "/privacy", description: "GDPR, DPDPA, HIPAA, CCPA, DORA, SEBI and PDPA." },
   { id: "testing", title: "Security Testing", short: "Test", href: "/security-testing", description: "Offensive testing that proves your controls actually work." },
@@ -117,44 +117,67 @@ export const industries = [
   { slug: "ai", name: "AI Companies", line: "Govern models and data before regulation forces your hand.", frameworks: ["ISO 42001", "ISO 27701", "DPDPA", "SOC 2"] },
 ];
 
-export const navigation = [
+export type NavLink = { name: string; href: string; desc?: string };
+export type NavItem = {
+  label: string;
+  href: string;
+  groups?: { title: string; items: NavLink[] }[];
+  feature?: { eyebrow: string; title: string; href: string; cta: string };
+};
+
+const fw = (p: Pillar, n?: number): NavLink[] =>
+  frameworks
+    .filter((f) => f.pillar === p)
+    .slice(0, n)
+    .map((f) => ({ name: f.name, href: `/compliance/${f.slug}` }));
+
+export const navigation: NavItem[] = [
   {
     label: "Compliance",
     href: "/compliance",
     groups: [
-      { title: "Certifications", base: "/compliance", items: frameworks.filter((f) => f.pillar === "certifications").slice(0, 8) },
-      { title: "Government & Defense", base: "/compliance", items: frameworks.filter((f) => f.pillar === "government") },
-      { title: "Privacy & Regulatory", base: "/compliance", items: frameworks.filter((f) => f.pillar === "privacy") },
+      { title: "Certifications", items: fw("certifications", 8) },
+      { title: "Government & Defense", items: fw("government") },
+      { title: "Privacy & Regulatory", items: fw("privacy") },
+      { title: "GRC Advisory", items: fw("advisory") },
     ],
-    feature: {
-      eyebrow: "Framework Finder",
-      title: "Not sure which frameworks apply to you?",
-      href: "/framework-finder",
-      cta: "Find out in 2 minutes",
-    },
+    feature: { eyebrow: "Framework Finder", title: "Not sure which frameworks apply to you?", href: "/framework-finder", cta: "Find out in 2 minutes" },
   },
   {
     label: "Security Testing",
     href: "/security-testing",
-    groups: [{ title: "Offensive Security", base: "/security-testing", items: testingServices }],
-    feature: {
-      eyebrow: "Security Testing",
-      title: "Compliance says you're secure. Testing proves it.",
-      href: "/security-testing",
-      cta: "Explore testing",
-    },
+    groups: [{ title: "Offensive Security", items: testingServices.map((t) => ({ name: t.name, href: `/security-testing/${t.slug}`, desc: t.blurb })) }],
+    feature: { eyebrow: "Security Testing", title: "Compliance says you're secure. Testing proves it.", href: "/security-testing", cta: "Explore testing" },
   },
   {
     label: "Industries",
     href: "/industries",
-    groups: [{ title: "Who we serve", base: "/industries", items: industries }],
-    feature: {
-      eyebrow: "Industries",
-      title: "Frameworks mapped to how your sector actually works.",
-      href: "/industries",
-      cta: "See all industries",
-    },
+    groups: [{ title: "Who we serve", items: industries.map((i) => ({ name: i.name, href: `/industries/${i.slug}`, desc: i.line })) }],
+    feature: { eyebrow: "Industries", title: "Frameworks mapped to how your sector actually works.", href: "/industries", cta: "See all industries" },
   },
-  { label: "Advisory", href: "/advisory" },
-  { label: "Company", href: "/about" },
-] as const;
+  { label: "Customers", href: "/customers" },
+  {
+    label: "Resources",
+    href: "/insights",
+    groups: [
+      {
+        title: "Learn",
+        items: [
+          { name: "Insights", href: "/insights", desc: "Guides and field notes from the audit floor." },
+          { name: "Customer stories", href: "/customers", desc: "How teams unified their compliance." },
+          { name: "Framework Finder", href: "/framework-finder", desc: "Which frameworks apply to you?" },
+          { name: "All frameworks", href: "/compliance", desc: "Every standard and regulation we cover." },
+        ],
+      },
+      {
+        title: "Company",
+        items: [
+          { name: "About SecureKnots", href: "/about", desc: "Our mission, approach and people." },
+          { name: "Careers", href: "/careers", desc: "Join a team of practitioners." },
+          { name: "Contact", href: "/contact", desc: "Talk to an expert." },
+        ],
+      },
+    ],
+    feature: { eyebrow: "Customer stories", title: "See how teams tied their compliance together.", href: "/customers", cta: "Read stories" },
+  },
+];

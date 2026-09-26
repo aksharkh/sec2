@@ -1,28 +1,9 @@
 import Link from "next/link";
 import { Eyebrow, Reveal, RevealLines } from "@/components/ui/Reveal";
 import Button, { Arrow } from "@/components/ui/Button";
+import { articles } from "@/lib/insights";
 
-// TODO(content): replace with real posts once the blog/MDX pipeline is in (phase 4).
-const GUIDES = [
-  {
-    slug: "soc-2-type-1-vs-type-2",
-    tag: "SOC 2",
-    title: "SOC 2 Type I vs Type II: which one do you need first?",
-    kicker: "For SaaS founders",
-  },
-  {
-    slug: "cmmc-level-2-readiness",
-    tag: "CMMC",
-    title: "CMMC 2.0 Level 2: a readiness checklist for defense suppliers",
-    kicker: "For the DIB",
-  },
-  {
-    slug: "dpdpa-what-to-do-now",
-    tag: "DPDPA",
-    title: "India's DPDPA: what data fiduciaries must operationalise now",
-    kicker: "For Indian enterprises",
-  },
-];
+const GUIDES = articles.slice(0, 3);
 
 export default function Insights() {
   return (

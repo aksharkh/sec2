@@ -18,6 +18,7 @@ const vertex = /* glsl */ `
   uniform float uProgress;
   uniform float uPixelRatio;
   uniform float uSize;
+  uniform float uDive;
   attribute float aT;
   attribute float aAngle;
   attribute float aRadius;
@@ -66,12 +67,13 @@ const vertex = /* glsl */ `
 
     vec4 mv = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mv;
-    float size = uSize * (0.35 + aRand * 0.9) * mix(1.4, 1.0, p);
-    gl_PointSize = size * uPixelRatio * (1.0 / -mv.z);
+    float size = uSize * (0.35 + aRand * 0.9) * mix(1.4, 1.0, p) * (1.0 + uDive * 0.8);
+    gl_PointSize = min(size * uPixelRatio * (1.0 / max(-mv.z, 0.05)), 48.0 * uPixelRatio);
 
     vRand = aRand;
     vDepth = smoothstep(-15.0, -7.0, mv.z);
     vAlpha = mix(0.35, 1.0, 1.0 - aRadius * 0.6) * mix(0.45, 1.0, p);
+    vAlpha *= smoothstep(0.15, 1.6, -mv.z); // soften particles as they rush past the lens
   }
 `;
 
@@ -143,15 +145,15 @@ function buildGeometry(count: number) {
 function Particles({
   count,
   progress,
-  scroll,
+  dive,
 }: {
   count: number;
   progress: React.RefObject<{ v: number }>;
-  scroll: React.RefObject<number>;
+  dive: React.RefObject<number>;
 }) {
   const group = useRef<THREE.Group>(null);
   const mat = useRef<THREE.ShaderMaterial>(null);
-  const { gl, pointer } = useThree();
+  const { gl, pointer, size } = useThree();
 
   const geometry = useMemo(() => buildGeometry(count), [count]);
 
@@ -162,6 +164,7 @@ function Particles({
       uPixelRatio: { value: Math.min(gl.getPixelRatio(), 2) },
       uSize: { value: 44 },
       uFade: { value: 1 },
+      uDive: { value: 0 },
       uBone: { value: new THREE.Color("#e6ecff") },
       uAccent: { value: new THREE.Color("#3b7bff") },
       uIce: { value: new THREE.Color("#c9d8ff") },
@@ -172,19 +175,32 @@ function Particles({
   useFrame((state, delta) => {
     if (!mat.current || !group.current) return;
     const u = mat.current.uniforms;
+    const t = state.clock.elapsedTime;
     u.uTime.value += Math.min(delta, 0.05);
     u.uProgress.value = progress.current.v;
-    const s = scroll.current ?? 0;
-    u.uFade.value = 1 - s * 0.7;
+
+    // Dive: scroll pulls the camera from its resting spot straight through the knot's hole.
+    const d = dive.current ?? 0;
+    const wide = size.width >= 1024;
+    const bx = wide ? -2.9 : 0;
+    const by = wide ? 0 : -0.6;
+    const bz = wide ? 13.2 : 16;
+    const center = sstep(0.04, 0.5, d);
+    const fly = sstep(0.12, 0.92, d);
+    const cam = state.camera;
+    cam.position.set(lerp(bx, 0, center), lerp(by, 0, center), lerp(bz, 1.6, fly * fly * (1.2 - 0.2 * fly)));
+    cam.lookAt(cam.position.x, cam.position.y, cam.position.z - 10);
+
+    u.uDive.value = d;
+    u.uFade.value = 1 - sstep(0.9, 1, d);
+
     const g = group.current;
-    const targetY = pointer.x * 0.25 + state.clock.elapsedTime * 0.05;
-    const targetX = -pointer.y * 0.18 + 0.35 + s * 0.9;
-    g.rotation.y += (targetY - g.rotation.y) * 0.04;
-    g.rotation.x += (targetX - g.rotation.x) * 0.04;
-    g.rotation.z = state.clock.elapsedTime * 0.03;
-    const sc = 1 + s * 0.35;
-    g.scale.setScalar(sc);
-    g.position.y = s * 1.2;
+    const free = 1 - sstep(0.02, 0.4, d); // pointer + idle motion fade out so the hole lines up
+    const targetY = (pointer.x * 0.25 + Math.sin(t * 0.12) * 0.35) * free;
+    const targetX = (-pointer.y * 0.18 + 0.35) * free;
+    g.rotation.y += (targetY - g.rotation.y) * 0.06;
+    g.rotation.x += (targetX - g.rotation.x) * 0.06;
+    g.rotation.z = t * 0.03 + d * 2.2;
   });
 
   return (
@@ -204,18 +220,13 @@ function Particles({
   );
 }
 
-function Rig() {
-  const { camera, size } = useThree();
-  useEffect(() => {
-    // Push the knot right on wide screens so it sits beside the headline.
-    const wide = size.width >= 1024;
-    camera.position.set(wide ? -2.9 : 0, wide ? 0 : -0.6, wide ? 13.2 : 16);
-    camera.lookAt(wide ? -2.9 : 0, wide ? 0 : -0.6, 0);
-  }, [camera, size.width]);
-  return null;
-}
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const sstep = (e0: number, e1: number, x: number) => {
+  const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0)));
+  return t * t * (3 - 2 * t);
+};
 
-export default function KnotScene({ scroll }: { scroll: React.RefObject<number> }) {
+export default function KnotScene({ dive }: { dive: React.RefObject<number> }) {
   const progress = useRef({ v: 0 });
   const count = useMemo(() => {
     if (typeof window === "undefined") return 40000;
@@ -242,8 +253,7 @@ export default function KnotScene({ scroll }: { scroll: React.RefObject<number> 
       gl={{ antialias: false, alpha: true, powerPreference: "high-performance" }}
       style={{ position: "absolute", inset: 0 }}
     >
-      <Rig />
-      <Particles count={count} progress={progress} scroll={scroll} />
+      <Particles count={count} progress={progress} dive={dive} />
     </Canvas>
   );
 }

@@ -1,8 +1,9 @@
 "use client";
 
+import { useProgress } from "@/lib/useProgress";
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { motion, useSpring, useTransform } from "motion/react";
 import { Eyebrow } from "@/components/ui/Reveal";
 import { Arrow } from "@/components/ui/Button";
 import { industries } from "@/lib/site";
@@ -74,7 +75,7 @@ export default function Industries() {
     };
   }, []);
 
-  const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end end"] });
+  const scrollYProgress = useProgress(section, ["start start", "end end"]);
   const x = useSpring(useTransform(scrollYProgress, [0, 1], [0, -distance]), { stiffness: 140, damping: 30, mass: 0.4 });
 
   return (

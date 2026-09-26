@@ -132,3 +132,24 @@ html.lenis, html.lenis body { height: auto; }
     scroll-behavior: auto !important;
   }
 }
+
+/* ───────────────────────── Page transitions ───────────────────────── */
+@keyframes curtain-lift {
+  from { clip-path: inset(0 0 0% 0); }
+  to { clip-path: inset(0 0 100% 0); }
+}
+@keyframes page-rise {
+  from { opacity: 0; transform: translate3d(0, 40px, 0); }
+  to { opacity: 1; transform: none; }
+}
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  clip-path: inset(0 0 100% 0);
+  animation: curtain-lift 0.9s cubic-bezier(0.83, 0, 0.17, 1) both;
+}
+.page-curtain--a { z-index: 250; background: var(--color-accent-deep); animation-delay: 0.05s; }
+.page-curtain--b { z-index: 249; background: var(--color-ink); animation-delay: 0.18s; }
+.page-enter { animation: page-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+.page-enter:has(#hero-title) { animation: none; }

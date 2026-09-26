@@ -31,6 +31,7 @@ export default function Button({
   className,
   magnetic = true,
   arrow = true,
+  book,
 }: {
   href: string;
   children: React.ReactNode;
@@ -39,6 +40,8 @@ export default function Button({
   className?: string;
   magnetic?: boolean;
   arrow?: boolean;
+  /** Open the booking modal instead of navigating. Pass a topic string to preselect it. */
+  book?: boolean | string;
 }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const x = useMotionValue(0);
@@ -71,6 +74,7 @@ export default function Button({
         onPointerMove={onMove}
         onPointerLeave={onLeave}
         data-cursor="hover"
+        data-book={book === undefined || book === false ? undefined : book === true ? "" : book}
         className={clsx(
           "group relative inline-flex items-center justify-center overflow-hidden rounded-full font-medium tracking-tight transition-colors duration-300",
           sizes,
