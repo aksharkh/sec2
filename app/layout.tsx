@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Footer";
 import Cursor from "@/components/ui/Cursor";
 import UIProvider from "@/components/providers/UIProvider";
 import Preloader from "@/components/overlays/Preloader";
+import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -96,6 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </UIProvider>
         </SmoothScroll>
         <Preloader />
+        <ThemeSwitcher />
         <Cursor />
       </body>
     </html>

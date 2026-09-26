@@ -172,6 +172,22 @@ function Particles({
     [gl],
   );
 
+  // Follow the live colour theme (ThemeSwitcher).
+  useEffect(() => {
+    const on = (e: Event) => {
+      const t = (e as CustomEvent<{ accent: string; ice: string }>).detail;
+      uniforms.uAccent.value.set(t.accent);
+      uniforms.uIce.value.set(t.ice);
+    };
+    window.addEventListener("sk-theme", on);
+    const css = getComputedStyle(document.documentElement);
+    const a = css.getPropertyValue("--color-accent").trim();
+    const i = css.getPropertyValue("--color-ice").trim();
+    if (a) uniforms.uAccent.value.set(a);
+    if (i) uniforms.uIce.value.set(i);
+    return () => window.removeEventListener("sk-theme", on);
+  }, [uniforms]);
+
   useFrame((state, delta) => {
     if (!mat.current || !group.current) return;
     const u = mat.current.uniforms;
